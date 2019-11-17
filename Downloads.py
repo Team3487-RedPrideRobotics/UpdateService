@@ -8,9 +8,11 @@ def detar(temp):
     tar = tarfile.open(temp)
     tar.extractall("./extractions")
 
-def downloadRepo(repo):
+def getDownloadLink(repo, tag=None):
     #downloads release to temp
     #returns temporary file
+    #TODO write version list for each service, server for all versions of software
+    #does it delete all data or does it do something else, like backing up the data
 
     url = 'https://api.github.com/repos/Team3487-RedPrideRobotics/{}/releases'
     url = url.format(repo)
@@ -19,7 +21,13 @@ def downloadRepo(repo):
     
     data = response.json()
     
-    download_url = data[0]['tarball_url']
+    version = data[0]
+
+    for release in data:
+        if release['tag_name'] == tag:
+            version = release
+            break
     #file_name = data[0]['assets'][0]['name']
-    file_name, headers = urllib.request.urlretrieve(download_url)
-    detar(file_name)
+
+    download_url = version['tarball_url']
+    return urllib.request.urlretrieve(download_url)
