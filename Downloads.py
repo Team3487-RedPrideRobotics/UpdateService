@@ -3,21 +3,24 @@ import requests
 import tarfile
 import os
 import urllib
+import logging
 
 def detar(temp):
     tar = tarfile.open(temp)
     tar.extractall("./extractions")
 
-def getDownloadLink(repo, tag=None):
+def getDownloadLink(source,tag=None):
     #downloads release to temp
     #returns temporary file
     #TODO write version list for each service, server for all versions of software
     #does it delete all data or does it do something else, like backing up the data
-
-    url = 'https://api.github.com/repos/Team3487-RedPrideRobotics/{}/releases'
-    url = url.format(repo)
-    print(url)
-    response = requests.get(url=url.format(repo))
+    logging.info("Given user: {}; Given repo: {}".format(source.user,source.repo))
+    
+    url = 'https://api.github.com/repos/{}/{}/releases'.format(source.user,source.repo)
+    logging.debug("API URL: {}".format(url))
+    
+    response = requests.get(url=url.format(source.user,source.repo))
+    logging.debug("Response: {}".format(response.json()))
     
     data = response.json()
     

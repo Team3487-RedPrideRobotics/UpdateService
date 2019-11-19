@@ -1,4 +1,5 @@
 from Downloads import getDownloadLink, detar
+from util.repo import DownloadSource
 
     #TODO get list of libraries to update
     # - Their locations in system
@@ -17,6 +18,7 @@ if __name__ == "__main__":
     #download & extract new versions
     #modifies systemd service if necessary (assets on github)
     #restarts services
-    filename, headers = getDownloadLink(repo="UpdateService")
+
+    filename, headers = getDownloadLink(DownloadSource("Team3487-RedPrideRobotics","UpdateService","asdf"))
     detar(filename)
     
