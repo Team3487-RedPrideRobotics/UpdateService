@@ -125,3 +125,4 @@ dmypy.json
 .pyre/
 
 extractions
+update_list.json
