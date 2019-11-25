@@ -22,7 +22,7 @@ def detar(temp,location):
     shutil.rmtree(old)
 
 def getDownloadManifest():
-    with open('update_list.json', 'r+') as manifest:
+    with open('update_list.json', 'a+') as manifest:
         manifestData = manifest.read()
         logging.info("Manifest length: %s"% len(manifestData))
         try:
